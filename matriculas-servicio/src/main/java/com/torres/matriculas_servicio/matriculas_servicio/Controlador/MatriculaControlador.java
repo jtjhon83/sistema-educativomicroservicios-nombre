@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.torres.matriculas_servicio.matriculas_servicio.Modelo.Matricula;
@@ -23,6 +24,18 @@ import com.torres.matriculas_servicio.matriculas_servicio.Servicio.MatriculaServ
 public class MatriculaControlador {
     @Autowired
     private MatriculaServicio matriculaServicio;
+
+    @PostMapping("/matriculas")
+    public ResponseEntity<Matricula> crearMatricula(
+            @RequestParam String estudianteId,
+            @RequestParam String asignaturaId) {
+        try {
+            Matricula nuevaMatricula = matriculaServicio.crearNuevaMatricula(estudianteId, asignaturaId);
+            return new ResponseEntity<>(nuevaMatricula, HttpStatus.CREATED);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // O un código de error más específico
+        }
+    }
 
     @GetMapping
     public ResponseEntity<List<Matricula>> listarMatriculas() {
