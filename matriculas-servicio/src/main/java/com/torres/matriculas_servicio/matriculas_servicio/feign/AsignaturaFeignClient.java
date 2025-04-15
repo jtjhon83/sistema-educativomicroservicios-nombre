@@ -8,7 +8,7 @@ import com.torres.matriculas_servicio.matriculas_servicio.DTO.AsignaturaDTO;
 
 
 
-@FeignClient(name = "asignaturas-servicio")
+@FeignClient(name = "asignaturas-servicio", url = "${asignaturas-servicio.url}")
 public interface AsignaturaFeignClient {
 
      @GetMapping("/asignaturas/{id}")

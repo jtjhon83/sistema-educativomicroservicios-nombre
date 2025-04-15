@@ -30,5 +30,13 @@ public class AsignaturaServicio {
     public void eliminarAsignatura(String id) {
         asignaturaRepositorio.deleteById(id);
     }
+    // Nuevos métodos para utilizar las consultas personalizadas del repositorio
+    public List<Asignatura> buscarAsignaturasPorNombre(String nombre) {
+        return asignaturaRepositorio.findByNombre(nombre);
+    }
+
+    public List<Asignatura> buscarAsignaturasPorCreditos(String creditos) {
+        return asignaturaRepositorio.findByCreditos(creditos);
+    }
 
 }

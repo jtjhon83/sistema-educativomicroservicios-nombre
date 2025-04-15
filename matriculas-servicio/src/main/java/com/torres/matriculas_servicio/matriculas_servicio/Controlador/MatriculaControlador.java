@@ -6,15 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.torres.matriculas_servicio.matriculas_servicio.Modelo.Matricula;
 import com.torres.matriculas_servicio.matriculas_servicio.Servicio.MatriculaServicio;
@@ -25,15 +17,15 @@ public class MatriculaControlador {
     @Autowired
     private MatriculaServicio matriculaServicio;
 
-    @PostMapping("/matriculas")
-    public ResponseEntity<Matricula> crearMatricula(
+    @PostMapping
+    public ResponseEntity<?> crearMatricula(
             @RequestParam String estudianteId,
             @RequestParam String asignaturaId) {
         try {
             Matricula nuevaMatricula = matriculaServicio.crearNuevaMatricula(estudianteId, asignaturaId);
             return new ResponseEntity<>(nuevaMatricula, HttpStatus.CREATED);
         } catch (RuntimeException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // O un código de error más específico
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND); // Devolver mensaje de error
         }
     }
 
@@ -46,14 +38,10 @@ public class MatriculaControlador {
     public ResponseEntity<Matricula> obtenerMatriculaPorId(@PathVariable String id) {
         Optional<Matricula> matricula = matriculaServicio.obtenerMatriculaPorId(id);
         return matricula.map(ResponseEntity::ok)
-                        .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    public ResponseEntity<Matricula> crearMatricula(@RequestBody Matricula matricula) {
-        Matricula nuevaMatricula = matriculaServicio.guardarMatricula(matricula);
-        return new ResponseEntity<>(nuevaMatricula, HttpStatus.CREATED);
-    }
+    // Eliminar o refactorizar el otro método @PostMapping
 
     @PutMapping("/{id}")
     public ResponseEntity<Matricula> actualizarMatricula(@PathVariable String id, @RequestBody Matricula matriculaActualizada) {
@@ -77,5 +65,4 @@ public class MatriculaControlador {
             return ResponseEntity.notFound().build();
         }
     }
-    
 }

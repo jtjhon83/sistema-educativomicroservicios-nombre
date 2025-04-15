@@ -64,5 +64,24 @@ public class AsignaturaControlador {
             return ResponseEntity.notFound().build();
         }
     }
+
+    // Nuevos endpoints para las búsquedas personalizadas
+    @GetMapping("/nombre/{nombre}")
+    public ResponseEntity<List<Asignatura>> buscarPorNombre(@PathVariable String nombre) {
+        List<Asignatura> asignaturas = asignaturaServicio.buscarAsignaturasPorNombre(nombre);
+        if (asignaturas.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(asignaturas);
+    }
+
+    @GetMapping("/creditos/{creditos}")
+    public ResponseEntity<List<Asignatura>> buscarPorCreditos(@PathVariable String creditos) {
+        List<Asignatura> asignaturas = asignaturaServicio.buscarAsignaturasPorCreditos(creditos);
+        if (asignaturas.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(asignaturas);
+    }
     
 }
