@@ -1,0 +1,6 @@
+com\torres\asignaturas_servicio\asignaturas_servicio\Servicio\AsignaturaServicio.class
+com\torres\asignaturas_servicio\asignaturas_servicio\AsignaturasServicioApplication.class
+com\torres\asignaturas_servicio\asignaturas_servicio\Modelo\Asignatura.class
+com\torres\asignaturas_servicio\asignaturas_servicio\Repositorio\AsignaturaRepositorio.class
+com\torres\asignaturas_servicio\asignaturas_servicio\Controlador\AsignaturaControlador.class
+com\torres\asignaturas_servicio\asignaturas_servicio\ServletInitializer.class
